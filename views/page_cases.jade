@@ -1,0 +1,35 @@
+extends layout
+block content
+	table.table.table-striped
+		caption	
+			select#appIndex.btn
+					option(data-type="all")	all
+					each val,key in	pages
+						option(data-type="#{key}") #{bizName['biz_'+key]}
+			each val,key in	pages
+				select.btn.pagesIndex.hide(class="app_#{key}")
+					option(data-type="all")	all
+					each v,k in	val
+						option(data-type="#{k}") #{appName['app_'+k]}
+			a.btn.btn-primary(href="pages/add")	添加页面
+		thead
+			tr
+				th	业务
+				th	子业务
+				th	页面名称
+				th	足迹号
+				th	操作
+		each val,key in	pages
+			each va,ke in val
+				tbody(class="pageContainer app_#{key} app_#{key}_#{ke}")
+					each v,k in	va
+						tr.success
+							td	#{v.biz_name}
+							td  #{v.app_name}
+							td	#{v.name}
+							td	#{v.zujiid}
+							td	
+								a(href="/pages/#{v.id}.html",style="margin-right:5px;") 进入
+								a(href="/pages/#{v.id}/edit") 编辑
+		script(src="/js/page.js")
+		

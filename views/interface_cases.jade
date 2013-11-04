@@ -1,0 +1,49 @@
+extends layout
+block content
+    - inter.name = inter.name || "未命名"
+    - inter.desc = inter.desc || "用途描述"
+    
+    div
+        h3.editable(data-key="name") #{inter.name}
+        p.editable(data-key="url") #{inter.url}
+        p.editable(data-key="desc") #{inter.desc}
+
+    table.table.table-striped
+        thead
+            tr
+                th 名称
+                th alpha运行情况
+                th beta运行情况
+                th 
+                    a(href="#modal-add",role="button",data-toggle="modal")
+                        i.icon-plus
+            tbody
+                each val,key in testcase.back
+                    tr
+                        - var name = val.name || "未命名";
+                        - var url = "/interface/"+id+"/case/"+val.id+"/run";
+                        td 
+                            a(href="#{url}")   #{name}
+                        td #{val.alpha_ok}
+                        td #{val.beta_ok}
+                        td 
+                            a(href="#{url}")
+                                i.icon-search
+            
+            // Modal
+            div#modal-add.modal.hide.fade(role="dialog")
+                div.modal-header
+                    button.close(type="button",data-dismiss="modal",aria-hidden="true") ×
+                    h3 添加用例
+                div.modal-body
+                    input.input-large#new-case-name(type="text",placeholder="用例名称，如：添加商户")
+                div.modal-footer
+                    button.btn(data-dismiss="modal",aria-hidden="true") 取消
+                    button.btn.btn-primary#new-case-submit 添加
+
+    script(src="/js/ace/ace.js")
+    script(src="/js/case_add.js")
+    script
+        $(".editable").editable("/__ajax__/update_interface",{type:"text"});
+        var interface_id = #{id};
+        $(document).data("id",#{id});

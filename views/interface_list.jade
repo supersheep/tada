@@ -1,0 +1,44 @@
+extends layout
+
+block content
+    script(src="/js/list.js")
+    script(src="/js/jade.js")
+
+    ul.nav.nav-pills
+        each biz,i in bizs
+            - var curbiz = (biz.id?biz.id==bizid:i==0);
+            - var cls = curbiz?"active":"";
+            - var bizname = curbiz?(biz.name+" ("+(appname||"所有")+")"):biz.name;
+                li(class="#{cls} dropdown biz-item",data-bizid="#{biz.id}")
+                    a.dropdown-toggle(id="drop-biz-#{biz.id}",href="#",role="button",data-toggle="dropdown") #{bizname} 
+                        b.caret
+                    ul.dropdown-menu(role="menu",aria-labelledby="drop-biz-#{biz.id}")
+                        li
+                            a(href="/?biz=#{biz.id}") 所有
+                        each app,j in biz.apps
+                            li
+                                a(href="/?app=#{app.id}") #{app.name}
+
+    div.stat-list
+    table.table.table-striped.stat-list
+        thead
+            tr
+                th 业务
+                th 路径
+                th 状态
+        tbody
+            for item in items
+                tr
+                    - var alphaok = item.alpha_ok && item.alpha_ok===item.case_count;
+                    - var betaok = item.beta_ok && item.beta_ok===item.case_count;
+                    - var bothok = alphaok && betaok;
+                    - var iconcls = "stat "+( bothok ? "ok" : "fail");
+                    - var iconchar = bothok ? "✔" : "✘"
+                    - var case_count = item.case_count || 0;
+                    - var alpha_ok = item.alpha_ok || 0;
+                    - var beta_ok = item.beta_ok || 0;
+                    td #{item.app_name}
+                    td
+                        a(href="/interface/#{item.id}") #{item.url}
+                    td
+                        span(class=iconcls) #{alpha_ok}/#{case_count} #{beta_ok}/#{case_count} #{iconchar}

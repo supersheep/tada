@@ -1,0 +1,25 @@
+extends layout
+block content
+    
+    h1 编辑用例：#{testcase.name} 
+        a(href="/interface/#{testcase.aid}/case/#{testcase.id}/run") 返回
+
+    form#form_add_testcase(method="post")
+        input(type="hidden",value="#{testcase.id}",name="id")
+        h2 请求数据
+        div.row
+            .span6
+                textarea.input-xlarge(name="req-schema",rows=7) #{testcase.reqschema}
+            .span6
+                textarea.input-xlarge(name="req-data",rows=7) #{testcase.reqdata}
+
+        h2 响应数据
+        div.row
+            .span6
+                textarea.input-xlarge(name="res-schema",rows=7) #{testcase.resschema}
+            .span6
+                textarea.input-xlarge(name="res-data",rows=7) #{testcase.resdata}
+
+        div.control-group
+            div.controls
+                button.btn.btn-primary(id="testcase_add") 更新

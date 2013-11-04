@@ -1,0 +1,24 @@
+var dbConfig = {
+        "development":{
+            "host":"localhost",
+            "user":"root",
+            "password":"",
+            "database":"tada"
+        },
+        "product":{
+            "host":"192.168.8.174",
+            "user":"root",
+            "password":"dp_f2e_mysql_db"
+        }
+    },
+    env = "development";
+
+
+exports.setEnv = function (e) {
+    env = e;
+};
+exports.getDBConfig = function () {
+    return dbConfig[env];
+};
+
+

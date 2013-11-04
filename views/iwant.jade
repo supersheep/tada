@@ -1,0 +1,9 @@
+extends layout
+block content
+    .well 这个页面非常低科技，只是简单保存在一个文本文件里了。
+        |大家有槽尽管吐，有意见尽管提，不过不要把别人的给改了啊。
+    pre.well.editable(data-key="content",style="line-height: 20px;font-size:13px;padding:19px;") #{content}
+    script(src="/js/ace/ace.js")
+    script(src="js/iwant.js") 
+
+

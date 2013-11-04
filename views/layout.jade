@@ -1,0 +1,32 @@
+doctype 5
+html
+  head
+    if locals.title
+        title #{title}
+    else
+        title TADA
+    //link(rel="stylesheet",href="http://fonts.googleapis.com/css?family=Joti+One")
+    link(rel='stylesheet', href='/css/bootstrap.css')
+    link(rel='stylesheet', href='/css/app.css')
+    script(src="/js/jquery.js")
+    script(src="/js/bootstrap.js")
+    script(src="/js/jade.min.js")
+  body
+    div.navbar.navbar-inverse.navbar-fixed-top
+        div.navbar-inner
+            a.brand(href='/') TADA!
+            ul.nav
+                - var list_active = (title=="TADA - 接口列表" ? "active":"");
+                - var add_active = (title=="TADA - 添加接口" ? "active":"");
+                li(class="#{list_active}")
+                    a(href="/") 接口列表
+                li(class="#{add_active}")
+                    a(href="/interface/add") 添加接口
+                li
+                    a(href="/iwant") 吐槽与需求
+                //- li
+                //-     a(href="/pages") 页面列表
+                
+                
+    div.container
+        block content

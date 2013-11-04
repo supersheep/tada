@@ -1,0 +1,57 @@
+- var name = (locals.testcase && testcase.name) || "";
+- var type = locals.casetype ? casetype : testcase.type ? testcase.type : 2;
+div.control-group
+    label.control-label 用例名称
+    div.controls
+        input(type="text",name="name",value="#{name}",placeholder="例：删除鲜花")
+
+
+mixin testcase(label,value)
+    div.control-group
+        label.control-label #{label} 
+        div.controls
+            textarea.input-xxlarge(rows="10",name="testcase") #{value}
+    
+mixin fakedata(label,value)
+    - var json;
+    - try{ json = JSON.parse(value)}catch(e){ json = {"get":{},"post":{},"cookie":{}};}
+        div.control-group
+            label.control-label #{label} 
+            div.controls
+                if type === 2
+                    each value,key in json
+                        div.controls-row.param-group
+                            div.span1
+                                h4 #{key}:
+                            div.span7
+                                table.table.table-bordered.J_param-table(data-param-name="#{key}")
+                                    thead
+                                        tr
+                                            th(width="15%") key
+                                            th(width="75%") value
+                                            th(width="10%") 
+                                                a.btn.btn-success.btn-small.J_add
+                                                    i.icon-plus.icon-white.icon-align-center
+                                    tbody
+                                        each v,k in value
+                                            tr
+                                                td
+                                                    input.span1.key(type="text",value="#{k}")
+                                                td
+                                                    input.span5.value(type="text",value="#{v}")
+                                                td
+                                                    a.btn.btn-danger.btn-small.J_remove
+                                                        i.icon-minus.icon-white.icon-align-center
+                    input#fakedata(type="hidden",name="fakedata",value="#{value}")
+                else
+                    textarea#fakedata.input-xxlarge(rows=10,name="fakedata") #{value}
+
+
+if (type==1)
+    - testcase = locals.testcase || {testcase:'get.should.have.property()\npost.should.have.property()\ncookie.should.have.property()\n',fakedata:""};
+    mixin testcase("若匹配规则",testcase.testcase)
+    mixin fakedata("则返回数据",testcase.fakedata)
+else
+    - testcase = locals.testcase || {testcase:"",fakedata:'{"get":{},"post":{},"cookie":{}}',fakedatajson:{get:{},post:{},cookie:{}}};
+    mixin fakedata("若请求参数",testcase.fakedata)
+    mixin testcase("返回应当匹配",testcase.testcase)

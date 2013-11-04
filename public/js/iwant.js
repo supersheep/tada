@@ -1,0 +1,1 @@
+$(".editable").editable("/__ajax__/update_iwant",{type:"text"});

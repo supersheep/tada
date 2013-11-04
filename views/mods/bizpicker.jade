@@ -1,0 +1,12 @@
+div.control-group
+    label.control-label 业务模块
+    div.controls
+        select#biz
+            each biz in bizs
+                - var selected = (biz.id==locals.bizid);
+                    option(value="#{biz.id}",selected=selected) #{biz.name}
+
+div.control-group
+    label.control-label(for="app") 子业务模块
+    div.controls
+        select#app(name="app")

@@ -1,0 +1,86 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.editable{
+	padding:3px;
+	position: relative;
+}
+.ace-editor{
+	left: 0px;
+	top: 0px;
+	bottom: 1px;
+	right: 1px;
+	background: white;
+}
+.edithint{
+	background-color: #FCF8E3;
+	cursor:pointer;
+}
+
+.navbar .brand{
+	/*font-family: 'Joti One', cursive; */
+	padding:7px 0;
+	margin:0 10px;
+	background:url(../img/tada.png) no-repeat;
+	text-indent: -9999px;
+	width:100px;
+}
+
+/*======= 健康度列表页面 =======*/
+.stat-list{
+	
+}
+
+.stat-list .item{
+	list-style-type: none;
+	background-color: #f5f5f5;
+	margin-bottom: 5px;
+}
+
+.stat-list .interface{
+	padding:5px;
+}
+
+.stat-list .case{
+	padding:5px;
+}
+
+.stat-list .item:hover{
+	cursor:pointer;
+	background-color:#eee;
+}
+
+.stat-list .stat{
+	width:100px;
+	background:none;
+}
+
+.stat-list .ok{
+	color:#93CC6C;
+}
+.stat-list .fail{
+	color:#E95A47;
+}
+
+
+/*======= 单项测试结果页 =======*/
+
+/*======= 单项测试编辑页 =======*/
+.params{
+	table-layout: fixed;
+}
+
+.params .param-title{width:15px;}
+.params .pairs{width:300px;}
+.params .pairs .pair{word-break:break-all;word-wrap:break-world;}
+.param-group{margin-bottom:20px;}
+/*#runtestcase-body{overflow: auto;}*/
+/*#runtestcase-result{height:35px;}*/
+
+

@@ -1,0 +1,50 @@
+extends layout
+block content
+    script(src="/js/interface_add.js")
+    div.well#form_add_ajax
+        form.form-horizontal(method="post")
+            legend #{title}
+            input(type="hidden",name="id",value=id)
+            div.control-group
+                label.control-label(for="url") 测试地址
+                div.controls
+                    p #{url}
+            include mods/bizpicker
+            div.control-group
+                div.controls
+                    input.btn.btn-primary(id="ajax_add",type="submit",value="更改")
+
+    table.table.table-bordered.table-hover#testcase_list.hide.table-striped
+        caption.lead.text-info 已有TestCase
+        thead
+            tr
+                th Type
+                th TestCase
+                th FakeData
+            tr
+
+    div.well.hide#form_add_testcase
+        div.form-horizontal
+            legend 添加一条TestCase
+            div.control-group
+                label.control-label Type
+                div.controls
+                    select#type
+                        option(value=1) 前端
+                        option(value=2) 后端
+            div.control-group
+                label.control-label(for="testcase") TestCase Code
+                div.controls
+                    textarea.span8(id="testcase",rows="8")
+            div.control-group
+                label.control-label(for="fake") Fake Data
+                div.controls
+                    textarea.span8(id="fake",rows="8")
+            div.control-group
+                div.controls
+                    button.btn.btn-primary(id="testcase_add") 添加
+
+    script
+        var apps = !{apps}
+        var appid = #{appid}
+        var bizid = #{bizid}

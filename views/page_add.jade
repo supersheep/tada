@@ -1,0 +1,30 @@
+extends layout
+block content
+    script(src="/js/interface_add.js")
+    script(src="/js/file-check.js")
+    div.well#form_add_ajax
+        form.form-horizontal(method="POST",enctype="multipart/form-data")
+            legend #{title}
+            div.control-group
+                label.control-label(for="url") 名称
+                div.controls
+                    input(type="text",name="name")
+            div.control-group
+                label.control-label(for="url") 足迹号
+                div.controls
+                    input(type="text",name="zujiid")
+            include mods/bizpicker
+
+            div.control-group
+                label.control-label(for="url") 源代码
+                div.controls
+                    textarea(type="text",id="source",name="source",style="width:650px;height:400px")
+            div.control-group
+                label.control-label(for="url") 上传页面
+                div.controls
+                    input(type="file",name="html",id="file")
+            div.control-group
+                div.controls
+                    input.btn.btn-primary(type="submit",value="添加")
+    script
+        var apps = !{apps}

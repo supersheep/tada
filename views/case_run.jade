@@ -1,0 +1,119 @@
+extends layout
+block content
+    - kase.name = kase.name || "未命名";
+    - interface.type = interface.type || 0;
+    - var typename = interface.type == 1 ? "JSONP" : "AJAX";
+    .well
+        form.form-horizontal
+            legend 运行用例：
+                span.editable#case-name(data-key="name") #{kase.name}
+            .control-group
+                label.control-label 接口路径 
+                .controls
+                    .well.well-small 
+                        div#addr http://#{bizs.alpha}#{kase.url}
+                        div#addr-bar.hide
+                            .input-prepend.input-append
+                                span.add-on http://
+                                input#custom-addr.input-xlarge(type="text")
+                                button#go.btn
+                                    i.icon-chevron-right
+                    input(type="hidden",readonly, value= "#{kase.url}")
+            .control-group
+                label.control-label 测试环境 
+                .controls.hosts
+                    ul.nav.nav-pills
+                        li.active.host(data-host=bizs.alpha)
+                            a(href="#") alpha
+                        li.host(data-host=bizs.beta)
+                            a(href="#") beta
+                        li.host(data-host=bizs.tada)
+                            a(href="#") tada假数据
+                        - if(bizs.local)
+                            li.host(data-host=bizs.local,data-url="/ajax/a.json")
+                                a(href="#") 本地环境
+                        li.host.other
+                            a(href="#") 其他
+
+
+            .control-group.hide#custom-evn-wrapper
+                label.control-label
+                .controls
+                    input#custom-evn-field(placeholder="192.168.8.174", type="text").span8
+
+            .control-group
+                label.control-label 请求
+                .controls
+                    .tabbable
+                        ul.nav.nav-tabs
+                            li.active
+                                a(href='#tab11', data-toggle='tab') 参数
+                            li
+                                a(href='#tab12', data-toggle='tab') 模板
+                            li
+                                a(href='#tab13', data-toggle='tab') 说明
+                        .tab-content
+                            #tab11.tab-pane.active
+                                pre.well.editable#reqdata(data-key="reqdata") #{kase.reqdata}
+                            #tab12.tab-pane
+                                pre.well.editable#reqschema(data-key="reqschema") #{kase.reqschema}
+                            #tab13.tab-pane
+                                pre.well "请求模板"中的Schema会作为一种简单的匹配模式
+                                    | 当向TADA中相应的url发送符合格式的数据时
+                                    | TADA会将相应的假数据作为响应返回
+                                    | 从而可以将TADA作为理想的前端调试代理服务器
+                                    | 
+                                    | Schema的语法可以参考 
+                                    a(href="https://github.com/molnarg/js-schema",target="_blank") https://github.com/molnarg/js-schema
+
+            .control-group
+                labe.control-label 响应
+                .controls
+                    .tabbable
+                        ul.nav.nav-tabs
+                            li.active
+                                a(href='#tab21', data-toggle='tab') 响应体
+                            li
+                                a(href='#tab22', data-toggle='tab') 模板
+                            li
+                                a(href='#tab23', data-toggle='tab') 伪数据
+                            li  
+                                a(href="#tab24", data-toggle='tab') 说明
+                        .tab-content
+                            #tab21.tab-pane.active
+                                pre#runtestcase-body.well
+                            #tab22.tab-pane
+                                pre.well.editable#resschema(data-key="resschema") #{kase.resschema}
+                            #tab23.tab-pane
+                                pre.well.editable#resdata(data-key="resdata") #{kase.resdata}
+                            #tab24.tab-pane
+                                pre.well(data-key="resdata") "响应模板"中的Schema会作为一个验证器
+                                    | 当以指定参数，在具体环境请求当前case的路径时，会将返回的内容与模板做一次验证
+                                    | 并将验证结果返回给用户。更详细的错误信息会考虑在将来的迭代中加入 :)
+                                    | 
+                                    | Schema的语法可以参考 
+                                    a(href="https://github.com/molnarg/js-schema",target="_blank") https://github.com/molnarg/js-schema
+
+            .control-group
+                label.control-label 测试结果
+                .controls
+                    div#runtestcase-result
+
+            
+    script#J_result-tpl(type="tpl/jade")
+        |each res in result
+        |    div
+        |        .well
+        |            each o in res
+        |                - var cls = o.ok ? "alert alert-success" : "alert alert-error";
+        |                - var msg = o.msg ? o.msg : "ok";
+        |                    div(class=cls) ${msg}
+    script(src="/js/ace/ace.js")
+    script(src="/js/schema.js")
+    script(src="/js/case_run.js")
+    script
+        $.data(document, "id", #{kase.id});
+        $.data(document, "type", #{interface.type});
+        $.data(document, "url", "#{kase.url}");
+        $.data(document, "host", "#{bizs.alpha}");
+

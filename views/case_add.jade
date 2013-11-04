@@ -1,0 +1,28 @@
+extends layout
+block content
+    
+    script(src="/js/case_edit.js")
+
+    
+    h1 添加一条用例
+    form#form_add_testcase(action="/interface/#{interface_id}/addcase",method="post")
+        h2 用例名称
+        div.row
+            input.input-xlarge(name="name")
+        h2 请求数据
+        div.row
+            .span6
+                textarea.input-xlarge(name="req-schema",rows=7) 格式
+            .span6
+                textarea.input-xlarge(name="req-data",rows=7) 伪数据
+
+        h2 响应数据
+        div.row
+            .span6
+                textarea.input-xlarge(name="res-schema",rows=7) 格式
+            .span6
+                textarea.input-xlarge(name="res-data",rows=7) 伪数据
+
+        div.control-group
+            div.controls
+                button.btn.btn-primary(id="testcase_add") 添加

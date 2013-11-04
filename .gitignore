@@ -1,0 +1,12 @@
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+pid.txt
+dao/config.js
+pages/
+node_modules
+tada.sublime-project
+tada.sublime-workspace
